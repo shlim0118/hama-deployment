@@ -48,7 +48,7 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
       - name: velocity-container
-        image: 756266714368.dkr.ecr.ap-northeast-2.amazonaws.com/lobby:36
+        image: 756266714368.dkr.ecr.ap-northeast-2.amazonaws.com/lobby:30
         resources:
           requests:
             cpu: "2"
