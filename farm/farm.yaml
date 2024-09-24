@@ -1,1 +1,66 @@
-11
+apiVersion: v1
+kind: Service
+metadata:
+  name: farm-service
+  namespace: game
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+spec:
+  selector:
+    app: farm
+  ports:
+    - protocol: TCP
+      port: 30001
+      targetPort: 30001
+  type: LoadBalancer
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: farm-deployment
+  namespace: game
+  labels:
+    app: farm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: farm
+  template:
+    metadata:
+      labels:
+        app: farm
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+           nodeSelectorTerms:
+           - matchExpressions:
+             - key: server
+               operator: In
+               values:
+                 - farm
+      nodeSelector:
+        server: "farm"
+      terminationGracePeriodSeconds: 0
+      containers:
+      - name: farm-container
+        image: 756266714368.dkr.ecr.ap-northeast-2.amazonaws.com/farm:11
+        volumeMounts:
+          - mountPath: /testt
+            name: farm-ebs-storage
+        resources:
+          requests:
+            cpu: "2"
+            memory: "2Gi"
+        securityContext:
+          allowPrivilegeEscalation: false
+        ports:
+        - containerPort: 30001     # farm server port
+      volumes:
+        - name: farm-ebs-storage
+          persistentVolumeClaim:
+            claimName: farm-pvc
