@@ -6,7 +6,7 @@ metadata:
   labels:
     app: velocity
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: velocity
