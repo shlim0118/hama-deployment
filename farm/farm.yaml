@@ -37,29 +37,29 @@ spec:
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-           nodeSelectorTerms:
-           - matchExpressions:
-             - key: server
-               operator: In
-               values:
-                 - farm
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: server
+                    operator: In
+                    values:
+                      - farm
       nodeSelector:
         server: "farm"
       terminationGracePeriodSeconds: 0
       containers:
-      - name: farm-container
-        image: 756266714368.dkr.ecr.ap-northeast-2.amazonaws.com/farm:11
-        volumeMounts:
-          - mountPath: /testt
-            name: farm-ebs-storage
-        resources:
-          requests:
-            cpu: "2"
-            memory: "2Gi"
-        securityContext:
-          allowPrivilegeEscalation: false
-        ports:
-        - containerPort: 30001     # farm server port
+        - name: farm-container
+          image: 756266714368.dkr.ecr.ap-northeast-2.amazonaws.com/farm:11
+          volumeMounts:
+            - mountPath: /testt
+              name: farm-ebs-storage
+          resources:
+            requests:
+              cpu: "2"
+              memory: "2Gi"
+          securityContext:
+            allowPrivilegeEscalation: false
+          ports:
+            - containerPort: 30001     # farm server port
       volumes:
         - name: farm-ebs-storage
           persistentVolumeClaim:
