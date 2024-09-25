@@ -2,21 +2,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: velocity-onprem-deployment
-  namespace: default
+  namespace: game
   labels:
     app: velocity
 spec:
   replicas: 0
   selector:
     matchLabels:
-      app: velocity-onprem
+      app: velocity
   template:
     metadata:
       labels:
-        app: velocity-onprem
+        app: velocity
     spec:
       containers:
-      - name: velocity-container
+      - name: velocity-onprem-container
         image: 756266714368.dkr.ecr.ap-northeast-2.amazonaws.com/velocity:onprem_4
         env:
         - name: ENABLE_PREFIX_DELEGATION
