@@ -48,7 +48,7 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
       - name: wild-container
-        image: 756266714368.dkr.ecr.ap-northeast-2.amazonaws.com/wild:30
+        image: 756266714368.dkr.ecr.ap-northeast-2.amazonaws.com/wild:22
         ports:
         - containerPort: 30003     # wild server portaaa
         resources:
