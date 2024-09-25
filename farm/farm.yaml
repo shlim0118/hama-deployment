@@ -26,6 +26,10 @@ spec:
                       - ap-northeast-2c
       nodeSelector:
         server: "farm"
+      tolerations:
+        - key: "karpenter.sh/unregistered"
+          operator: "Exists"
+          effect: "NoSchedule"
       terminationGracePeriodSeconds: 0
       containers:
         - name: farm-container
