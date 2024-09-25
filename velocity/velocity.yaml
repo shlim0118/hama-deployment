@@ -46,6 +46,9 @@ spec:
       containers:
       - name: velocity-container
         image: 756266714368.dkr.ecr.ap-northeast-2.amazonaws.com/velocity:22
+        env:
+        - name: ENABLE_PREFIX_DELEGATION
+          value: "true"
         resources:
           requests:
             cpu: "2"
