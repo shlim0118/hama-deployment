@@ -47,8 +47,8 @@ spec:
         - name: fish-container
           image: 756266714368.dkr.ecr.ap-northeast-2.amazonaws.com/fish:8
           env:
-          - name: ENABLE_PREFIX_DELEGATION
-            value: "true"
+            - name: ENABLE_PREFIX_DELEGATION
+              value: "true"
           ports:
             - containerPort: 30002     # fish server port
           resources:
