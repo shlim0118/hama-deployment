@@ -17,6 +17,7 @@ spec:
   type: LoadBalancer
 
 ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -37,30 +38,30 @@ spec:
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-           nodeSelectorTerms:
-           - matchExpressions:
-             - key: server
-               operator: In
-               values:
-                 - wild
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: server
+                    operator: In
+                    values:
+                      - wild
       nodeSelector:
         server: "wild"
       terminationGracePeriodSeconds: 0
       containers:
-      - name: wild-container
-        image: 756266714368.dkr.ecr.ap-northeast-2.amazonaws.com/wild:22
-        env:
-        - name: ENABLE_PREFIX_DELEGATION
-          value: "true"
-        ports:
-        - containerPort: 30003     # wild server portaaa
-        resources:
-          requests:
-            cpu: "2"
-            memory: "2Gi"
-        volumeMounts:
-          - mountPath: /test
-            name: wild-ebs-storage
+        - name: wild-container
+          image: 756266714368.dkr.ecr.ap-northeast-2.amazonaws.com/wild:22
+          env:
+            - name: ENABLE_PREFIX_DELEGATION
+              value: "true"
+          ports:
+            - containerPort: 30003     # wild server port
+          resources:
+            requests:
+              cpu: "2"
+              memory: "2Gi"
+          volumeMounts:
+            - mountPath: /test
+              name: wild-ebs-storage
       volumes:
         - name: wild-ebs-storage
           persistentVolumeClaim:
