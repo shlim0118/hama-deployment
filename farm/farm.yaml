@@ -43,17 +43,8 @@ spec:
                     operator: In
                     values:
                       - ap-northeast-2c
-              - matchExpressions:
-                  - key: server
-                    operator: In
-                    values:
-                      - farm
       nodeSelector:
         server: "farm"
-      tolerations:
-        - key: server
-          value: "farm"
-          effect: "NoSchedule"
       terminationGracePeriodSeconds: 0
       containers:
         - name: farm-container
