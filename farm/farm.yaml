@@ -39,6 +39,11 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
               - matchExpressions:
+                  - key: topology.ebs.csi.aws.com/zone
+                    operator: In
+                    values:
+                      - ap-northeast-2c
+              - matchExpressions:
                   - key: server
                     operator: In
                     values:
