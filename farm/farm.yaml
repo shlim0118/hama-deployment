@@ -48,7 +48,7 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
         - name: farm-container
-          image: 756266714368.dkr.ecr.ap-northeast-2.amazonaws.com/farm:11
+          image: 756266714368.dkr.ecr.ap-northeast-2.amazonaws.com/farm:4
           volumeMounts:
             - mountPath: /testt
               name: farm-ebs-storage
