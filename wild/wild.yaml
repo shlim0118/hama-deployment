@@ -1,1 +1,64 @@
-111
+##### wild-deployment and service
+apiVersion: v1
+kind: Service
+metadata:
+  name: wild-service
+  namespace: game
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+spec:
+  selector:
+    app: wild
+  ports:
+    - protocol: TCP
+      port: 30003
+      targetPort: 30003
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wild-deployment
+  namespace: game
+  labels:
+    app: wild
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wild
+  template:
+    metadata:
+      labels:
+        app: wild
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+           nodeSelectorTerms:
+           - matchExpressions:
+             - key: server
+               operator: In
+               values:
+                 - wild
+      nodeSelector:
+        server: "wild"
+      terminationGracePeriodSeconds: 0
+      containers:
+      - name: wild-container
+        image: 756266714368.dkr.ecr.ap-northeast-2.amazonaws.com/wild:30
+        ports:
+        - containerPort: 30003     # wild server portaaa
+        resources:
+          requests:
+            cpu: "2"
+            memory: "2Gi"
+        volumeMounts:
+          - mountPath: /test
+            name: wild-ebs-storage
+      volumes:
+        - name: wild-ebs-storage
+          persistentVolumeClaim:
+            claimName: wild-pvc
