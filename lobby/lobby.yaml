@@ -47,14 +47,14 @@ spec:
         server: "default"
       terminationGracePeriodSeconds: 0
       containers:
-      - name: velocity-container
-        image: 756266714368.dkr.ecr.ap-northeast-2.amazonaws.com/lobby:30
-        env:
-        - name: ENABLE_PREFIX_DELEGATION
-          value: "true"
-        resources:
-          requests:
-            cpu: "2"
-            memory: "2Gi"
-        ports:
-        - containerPort: 30000     # lobby-sub server port
+        - name: velocity-container
+          image: 756266714368.dkr.ecr.ap-northeast-2.amazonaws.com/lobby:30
+          env:
+            - name: ENABLE_PREFIX_DELEGATION
+              value: "true"
+          resources:
+            requests:
+              cpu: "2"
+              memory: "2Gi"
+          ports:
+            - containerPort: 30000     # lobby-sub server port
