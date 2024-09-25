@@ -47,6 +47,9 @@ spec:
       containers:
       - name: farm-container
         image: 756266714368.dkr.ecr.ap-northeast-2.amazonaws.com/farm:11
+        env:
+          - name: ENABLE_PREFIX_DELEGATION
+            value: "true"
         volumeMounts:
           - mountPath: /testt
             name: farm-ebs-storage
