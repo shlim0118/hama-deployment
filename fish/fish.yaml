@@ -32,14 +32,25 @@ spec:
       labels:
         app: fish
     spec:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: server
+                  operator: In
+                  values:
+                    - default
+      nodeSelector:
+        server: "default"
+      terminationGracePeriodSeconds: 0
       containers:
-      - name: fish-container
-        image: 756266714368.dkr.ecr.ap-northeast-2.amazonaws.com/fish:14
-        ports:
-        - containerPort: 30002     # fish server port
-        resources:
-          requests:
-            cpu: "2"
-            memory: "2Gi"
-        securityContext:
-          allowPrivilegeEscalation: false
+        - name: fish-container
+          image: 756266714368.dkr.ecr.ap-northeast-2.amazonaws.com/fish:14
+          ports:
+            - containerPort: 30002     # fish server port
+          resources:
+            requests:
+              cpu: "2"
+              memory: "2Gi"
+          securityContext:
+            allowPrivilegeEscalation: false
