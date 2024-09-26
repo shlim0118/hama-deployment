@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: velocity-onprem-deployment
+  name: velocity-cloud-deployment
   namespace: game
   labels:
     app: velocity
 spec:
-  replicas: 0
+  replicas: 2
   selector:
     matchLabels:
       app: velocity
@@ -28,7 +28,7 @@ spec:
         server: "default"
       terminationGracePeriodSeconds: 0
       containers:
-      - name: velocity-onprem-container
+      - name: velocity-cloud-container
         image: 756266714368.dkr.ecr.ap-northeast-2.amazonaws.com/velocity:onprem_4
         env:
         - name: ENABLE_PREFIX_DELEGATION
