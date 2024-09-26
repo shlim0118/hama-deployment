@@ -6,7 +6,7 @@ metadata:
   labels:
     app: velocity
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: velocity
@@ -15,6 +15,18 @@ spec:
       labels:
         app: velocity
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: server
+                    operator: In
+                    values:
+                      - default
+      nodeSelector:
+        server: "default"
+      terminationGracePeriodSeconds: 0
       containers:
       - name: velocity-onprem-container
         image: 756266714368.dkr.ecr.ap-northeast-2.amazonaws.com/velocity:onprem_4
