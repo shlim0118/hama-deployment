@@ -34,4 +34,4 @@ spec:
         - name: ENABLE_PREFIX_DELEGATION
           value: "true"
         ports:
-        - containerPort: 25565
+        - containerPort: 25565    # um
