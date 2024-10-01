@@ -32,14 +32,6 @@ spec:
       labels:
         app: fish
     spec:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: server
-                  operator: In
-                  values:
-                    - default
       nodeSelector:
         server: "default"
       terminationGracePeriodSeconds: 0
