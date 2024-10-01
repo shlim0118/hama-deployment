@@ -50,7 +50,7 @@ spec:
             - name: ENABLE_PREFIX_DELEGATION
               value: "true"
           ports:
-            - containerPort: 30002     # fish server port
+            - containerPort: 30002     # fish server port um
           resources:
             requests:
               cpu: "2"
