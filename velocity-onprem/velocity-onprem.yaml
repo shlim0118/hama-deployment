@@ -1,12 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: velocity-cloud-deployment
+  name: velocity-onprem-deployment
   namespace: game
   labels:
     app: velocity
+    argocd.argoproj.io/instance: velocity-onprem-app
 spec:
-  replicas: 2
+  replicas: 0
   selector:
     matchLabels:
       app: velocity
@@ -28,10 +29,23 @@ spec:
         server: "default"
       terminationGracePeriodSeconds: 0
       containers:
-      - name: velocity-cloud-container
-        image: 756266714368.dkr.ecr.ap-northeast-2.amazonaws.com/velocity:onprem_7
+      - name: velocity-onprem-container
+        image: 756266714368.dkr.ecr.ap-northeast-2.amazonaws.com/velocity:onprem_4
         env:
         - name: ENABLE_PREFIX_DELEGATION
           value: "true"
         ports:
-        - containerPort: 25565    # um
+        - containerPort: 25565
+          protocol: TCP
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: false
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
