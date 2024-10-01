@@ -32,6 +32,7 @@ spec:
       labels:
         app: fish
     spec:
+      affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
@@ -50,7 +51,7 @@ spec:
             - name: ENABLE_PREFIX_DELEGATION
               value: "true"
           ports:
-            - containerPort: 30002     # fish server port um
+            - containerPort: 30002     # fish server port
           resources:
             requests:
               cpu: "2"
